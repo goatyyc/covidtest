@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.covidtest.mapper.SiteMapper">
+
+    <sql id="selectFields">
+        id, name, place, type, status, book, status, time
+    </sql>
+    <select id="search" resultType="com.example.covidtest.pojo.Site">
+        select <include refid="selectFields"></include> 
+        from site
+        where type like concat('%',#{keyWord},'%')
+    </select>
+
+
+</mapper>
