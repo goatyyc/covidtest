@@ -37,8 +37,8 @@ public class InfoController {
     @AfterLogin
     @GetMapping("/getSites")
     public Response getSites(){
-        siteService.getSiteList();
-        return Response.success();
+        List<Site> siteList = siteService.getSiteList();
+        return Response.success(siteList);
     }
     
     @AfterLogin

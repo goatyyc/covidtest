@@ -1,5 +1,6 @@
 package com.example.covidtest.controller;
 
+import com.example.covidtest.config.annotation.AfterLogin;
 import com.example.covidtest.dto.UserLoginDTO;
 import com.example.covidtest.mapper.UserMapper;
 import com.example.covidtest.pojo.Response;
@@ -97,6 +98,12 @@ public class UserController {
             }
         }
         return "index";
+    }
+    
+    @AfterLogin
+    @GetMapping("/apply")
+    public String applyAtHome(){
+        return "apply";
     }
     
 }

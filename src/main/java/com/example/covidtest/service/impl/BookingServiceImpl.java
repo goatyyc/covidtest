@@ -77,8 +77,10 @@ public class BookingServiceImpl implements IBookingService {
         }else {
             booking.setStatus("uncheck");
         }
+        booking.setUid(uid);
+        booking.setType("RAT");
         booking.setQrcode(code);
         booking.setUrl(code);
-        bookingMapper.insert(booking);
+        bookingMapper.insertBooking(booking);
     }
 }

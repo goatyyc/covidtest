@@ -20,4 +20,6 @@ public interface BookingMapper {
     Booking query(String pin);
 
     void update(Booking booking);
+
+    void insertBooking(Booking booking);
 }

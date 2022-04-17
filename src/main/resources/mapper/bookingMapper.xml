@@ -12,7 +12,11 @@
         insert into booking (uid,pin,status)
         values (#{uid},#{pin},#{status})  
     </insert>
-    
+    <insert id="insertBooking" parameterType="com.example.covidtest.pojo.Booking" useGeneratedKeys="true" keyProperty="id">
+        insert into booking (uid,pin,status,type,qrcode,url)
+        values (#{uid},#{pin},#{status},#{type},#{qrcode},#{url})
+    </insert>
+
     <update id="update">
         update booking 
         set status=#{status},
