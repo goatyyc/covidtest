@@ -2,6 +2,7 @@ package com.example.covidtest.controller;
 
 import com.example.covidtest.config.annotation.AfterLogin;
 import com.example.covidtest.mapper.UserMapper;
+import com.example.covidtest.pojo.Booking;
 import com.example.covidtest.pojo.Response;
 import com.example.covidtest.pojo.Site;
 import com.example.covidtest.service.IBookingService;
@@ -11,9 +12,11 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
+import java.time.LocalDateTime;
 import java.util.List;
 
 /**
@@ -51,25 +54,15 @@ public class InfoController {
      * @return
      */
     @PostMapping("/bookingAtHome")
-    public Response booking(HttpServletRequest request){
+    public Response booking(HttpServletRequest request,@RequestParam("flag") String flag){
         // 获取token中的用户信息
         int uid = JwtUtils.getCurrentUserId(request);
-        // 生成二维码和url : 插入一条新预定记录
-        bookingService.addBooking(uid);
-        // 
-        return Response.success();
+        // 生成二维码和url : 同pin码 作为唯一标识
+        String code = uid+":"+(LocalDateTime.now());
+        bookingService.addBooking(uid,code,flag);
+        Booking booking = bookingService.queryStatus(code);
+        return Response.success(booking);
     }
-
-    /**
-     * 用户到测试中心领取设备
-     * @param request
-     * @return
-     */
-    @PostMapping("/getFacility")
-    public Response getFacility(HttpServletRequest request){
-        // 用户到测试中心接收RAT 
-
-        return Response.success();
-    }
+    
 
 }

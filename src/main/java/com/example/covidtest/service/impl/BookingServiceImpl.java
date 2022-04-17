@@ -56,13 +56,29 @@ public class BookingServiceImpl implements IBookingService {
         bookingMapper.update(booking);
     }
 
+    @Override
+    public void update(Booking booking) {
+        bookingMapper.update(booking);
+    }
+
     /**
      * 预定后生成url和二维码
      * @param uid
      */
     @Override
-    public void addBooking(int uid) {
-        // 生成二维码和url策略
-        
+    public void addBooking(int uid,String code,String flag) {
+        // 生成二维码和url
+        // 生成一个唯一标识
+        Booking booking = new Booking();
+        booking.setPin(code);
+        // flag 为 已经拥有设备，则状态为checking
+        if(flag.equals("own")){
+            booking.setStatus("checking");
+        }else {
+            booking.setStatus("uncheck");
+        }
+        booking.setQrcode(code);
+        booking.setUrl(code);
+        bookingMapper.insert(booking);
     }
 }

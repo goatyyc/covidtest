@@ -14,7 +14,10 @@
     </insert>
     
     <update id="update">
-        update booking set status=#{status},type=#{type} where id = #{id}
+        update booking 
+        set status=#{status},
+            type=#{type} 
+        where id = #{id}
     </update>
     
     

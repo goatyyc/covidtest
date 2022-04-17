@@ -10,6 +10,8 @@ public interface IBookingService {
     Booking queryStatus(String pin);
 
     void updateBooking(UserInfoDTO userInfoDTO);
+    
+    void update(Booking booking);
 
-    void addBooking(int uid);
+    void addBooking(int uid,String code,String flag);
 }
