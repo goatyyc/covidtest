@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org/">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Apply</title>
+    <script src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js">
+    </script>
+</head>
+<body>
+    <form id="addForm" action="#" method="post">
+        <input type="radio" name="flag" value="own"/>own facility<br/>
+        <input type="radio" name="flag" value="no facility"/>no facility<br />
+    </form>
+    <button type="button" id="submitAdd">apply</button>
+</body>
+<script>
+    $("#submitAdd").click(function(){
+
+        var targetUrl = "/bookingAtHome";
+        var data = $("#addForm").serialize();
+        // console.log(data)
+        $.ajax({
+            type:'post',
+            url:targetUrl,
+            cache: false,
+            data:data,
+            dataType:'json',
+            success:function(data){
+                console.log(data)
+                var res = data.data
+                alert('copy your qrcode / url info:' +
+                    'qrcode:'+res.qrcode
+                    + '--' + 'url:'+res.url
+                    + '--' + 'type:'+res.type
+                    + '--' + 'status:'+res.status
+                );
+            },
+            error:function(){
+                alert("请求失败")
+            }
+        })
+
+    })
+</script>
+</html>

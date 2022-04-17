@@ -4,9 +4,95 @@
 <head>
     <meta charset="UTF-8">
     <title>sites</title>
+    <script src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js">
+    </script>
+    <style>
+        body{
+            background: #f5f5f5;
+        }
+        .item{
+            width: 100%;
+            padding: 10px;
+            box-sizing: border-box;
+            background: #fff;
+            border-bottom: 1px solid #e5e5e5;
+            margin-bottom: 10px;
+        }
+        .item .item-title{
+            font-size: 16px;
+            line-height: 24px;
+        }
+        .item .item-content{
+            color: #9D9D9D;
+            margin-right: 20px;
+        }
+    </style>
 </head>
 <body>
     <h1>user</h1>
+
+    <!--页面容器-->
+    <div id="container">
+        <!--每个条目-->
+        <div class="item">
+            <div class="item-title">id</div>
+            <div>
+                <span class="item-content">name</span>
+                <span class="item-content">place</span>
+                <span class="item-content">type</span>
+                <span class="item-content">status</span>
+                <span class="item-content">book</span>
+                <span class="item-content">time</span>
+            </div>
+        </div>
+    </div>
+
 </body>
 <!--js 调用后台接口，渲染到页面 -->
+    <input type="text" name="box" placeholder="..."><br/>
+    <button id="button" value="search">search</button>
+<script>
+    $("button").click(function(){
+        $.ajax({
+            //请求方式
+            type:'GET',
+            //发送请求的地址以及传输的数据
+            url:'/getSites',
+            //服务器返回的数据类型
+            dataType:'json',
+            success:function(data){
+                //请求成功函数内容
+                console.log(data)
+                //获取需要的数据
+                var group = data.data;
+                console.log(group)
+
+                //拼接字符串
+                var str = '';
+                //对数据做遍历，拼接到页面显示
+                for(var i=0;i<group.length;i++){
+                    console.log(group[i])
+                    str += '<div class="item">'+
+                        '<div class="item-title">'+ group[i].id +'</div>'+
+                        '<div>'+
+                        '<span class="item-content">'+ group[i].name +'</span>'+
+                        '<span class="item-content">'+ group[i].place +'</span>'+
+                        '<span class="item-content">'+ group[i].type +'</span>'+
+                        '<span class="item-content">'+ group[i].status +'</span>'+
+                        '<span class="item-content">'+ group[i].book +'</span>'+
+                        '<span class="item-content">'+ group[i].time +'</span>'+
+                        '</div>'+
+                        '</div>';
+                }
+                //放入页面的容器显示
+                $('#container').html(str);
+            },
+            error:function(jqXHR){
+                //请求失败函数内容
+            }
+        });
+
+    });
+</script>
+
 </html>

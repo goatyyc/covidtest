@@ -4,9 +4,57 @@
 <head>
     <meta charset="UTF-8">
     <title>Administerer</title>
+    <script src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js">
+    </script>
 </head>
 <body>
     <h1>Administerer</h1>
-
+    <form id="addForm" action="#" method="post">
+        <input type="text" name="pin"/><br/>
+        <input type="radio" name="symptoms" value="severe"/>severe<br />
+        <input type="radio" name="symptoms" value="slightly"/>slightly<br />
+        <input type="radio" name="symptoms" value="no"/>no symptoms<br />
+    </form>
+    <button type="button" id="submitAdd">update booking info</button>
 </body>
+<script>
+    //把表单数据转换为 对象
+    function serializeObject(obj) {
+        var result = {}; // 准备一个空对象
+        var params = obj.serializeArray();
+        $.each(params, function (index, value) {
+            result[value.name] = value.value;
+        });
+        return result; // 将处理的结果返回到函数外部
+    }
+    $("#submitAdd").click(function(){
+
+        var data = serializeObject($("#addForm"));
+        console.log(data)
+        
+        var targetUrl = "/testOnSite";
+        
+        $.ajax({
+            type:'post',
+            url:targetUrl,
+            cache: false,
+            dataType:'json',
+            contentType:'application/json;charset=UTF-8',
+            data:JSON.stringify(data),
+            success:function(data){
+                console.log(data)
+                var res = data.data
+                alert('booking info:' +
+                    + '--' + 'pin:'+res.pin
+                    + '--' + 'type:'+res.type
+                    + '--' + 'status:'+res.status
+                );
+            },
+            error:function(){
+                alert("请求失败:不存在该预约")
+            }
+        })
+
+    })
+</script>
 </html>

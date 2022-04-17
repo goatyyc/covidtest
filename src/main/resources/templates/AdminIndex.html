@@ -4,8 +4,75 @@
 <head>
     <meta charset="UTF-8">
     <title>AdminIndex</title>
+    <script src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js">
+    </script>
 </head>
 <body>
     <h1>AdminIndex</h1>
+    <form id="addForm" action="#" method="post">
+        <input type="text" name="uid" placeholder="input uid"/><br/>
+    </form>
+    <button type="button" id="submitAdd">generatePin</button>
+    
+    <br />
+    <form id="queryForm" action="#" method="get">
+        <input type="text" name="pin" placeholder="input pin code"/><br/>
+    </form>
+    <button type="button" id="queryStatus">queryStatus</button>
+    
 </body>
+<script>
+    $("#submitAdd").click(function(){
+
+        var targetUrl = "/generate";
+        var data = $("#addForm").serialize();
+        console.log(data)
+        $.ajax({
+            type:'post',
+            url:targetUrl,
+            cache: false,
+            data:data,
+            dataType:'json',
+            success:function(data){
+                console.log(data)
+                var res = data.data
+                alert('booking info:' +
+                    + '--' + 'pin:'+res.pin
+                    + '--' + 'type:'+res.type
+                    + '--' + 'status:'+res.status
+                );
+            },
+            error:function(){
+                alert("请求失败")
+            }
+        })
+
+    })
+
+    $("#queryStatus").click(function(){
+
+        var targetUrl = "/checkStatus";
+        var data = $("#queryForm").serialize();
+        console.log(data)
+        $.ajax({
+            type:'get',
+            url:targetUrl,
+            data:data,
+            cache: false,
+            success:function(data){
+                console.log(data)
+                var res = data.data
+                alert('booking info:' +
+                    + '--' + 'pin:'+res.pin
+                    + '--' + 'type:'+res.type
+                    + '--' + 'status:'+res.status
+                );
+            },
+            error:function(){
+                alert("请求失败")
+            }
+        })
+
+    })
+</script>
 </html>
