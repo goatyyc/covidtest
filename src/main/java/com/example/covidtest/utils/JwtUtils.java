@@ -4,10 +4,13 @@ import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.JwtBuilder;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.tomcat.util.codec.binary.Base64;
 
 import javax.crypto.SecretKey;
 import javax.crypto.spec.SecretKeySpec;
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -17,6 +20,7 @@ import java.util.Map;
  * @author: yyc
  * @time: 2022/4/14 21:51
  */
+@Slf4j
 public class JwtUtils {
     /**
      * 过期时间
@@ -103,6 +107,21 @@ public class JwtUtils {
             return false;
         }
         return true;
+    }
+    
+    public static int getCurrentUserId(HttpServletRequest request){
+        // 获取request中的cookie中的token
+        Cookie[] cookies = request.getCookies();
+        int uid = 0;
+        for (Cookie cookie : cookies) {
+            if(cookie.getName().equals("token")){
+                String token = cookie.getValue();
+                log.info("token:{}",token);
+                uid = JwtUtils.getUserIdByToken(token);
+                log.info("userId:{}",uid);
+            }
+        }
+        return uid;
     }
 
 }

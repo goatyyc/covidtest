@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.covidtest.mapper.BookingMapper">
+
+    <sql id="selectFields">
+        id, uid, pin, status, type, qrcode, url
+    </sql>
+    
+    <insert id="insert" parameterType="com.example.covidtest.pojo.Booking" useGeneratedKeys="true" keyProperty="id">
+        insert into booking (uid,pin,status)
+        values (#{uid},#{pin},#{status})  
+    </insert>
+    
+    <update id="update">
+        update booking set status=#{status},type=#{type} where id = #{id}
+    </update>
+    
+    
+    <select id="query" resultType="com.example.covidtest.pojo.Booking">
+        select <include refid="selectFields"></include>
+        from booking where pin = #{pin}
+    </select>
+
+
+</mapper>
