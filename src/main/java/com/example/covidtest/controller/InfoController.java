@@ -1,7 +1,6 @@
 package com.example.covidtest.controller;
 
 import com.example.covidtest.config.annotation.AfterLogin;
-import com.example.covidtest.mapper.UserMapper;
 import com.example.covidtest.pojo.Booking;
 import com.example.covidtest.pojo.Response;
 import com.example.covidtest.pojo.Site;

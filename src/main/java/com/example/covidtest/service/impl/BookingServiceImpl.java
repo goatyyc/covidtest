@@ -1,6 +1,5 @@
 package com.example.covidtest.service.impl;
 
-import com.example.covidtest.dto.BookingDTO;
 import com.example.covidtest.dto.UserInfoDTO;
 import com.example.covidtest.mapper.BookingMapper;
 import com.example.covidtest.pojo.Booking;
@@ -8,10 +7,7 @@ import com.example.covidtest.service.IBookingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.xml.crypto.Data;
-import java.awt.print.Book;
 import java.time.LocalDateTime;
-import java.util.Date;
 
 /**
  * @description:

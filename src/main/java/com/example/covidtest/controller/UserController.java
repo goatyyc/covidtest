@@ -1,26 +1,20 @@
 package com.example.covidtest.controller;
 
 import com.example.covidtest.config.annotation.AfterLogin;
-import com.example.covidtest.dto.UserLoginDTO;
-import com.example.covidtest.mapper.UserMapper;
-import com.example.covidtest.pojo.Response;
 import com.example.covidtest.pojo.User;
 import com.example.covidtest.service.IUserService;
 import com.example.covidtest.utils.JwtUtils;
-import com.sun.deploy.net.HttpResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
-import sun.security.provider.MD5;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * @description:

@@ -1,7 +1,6 @@
 package com.example.covidtest.controller;
 
 import com.example.covidtest.config.annotation.AfterLogin;
-import com.example.covidtest.dto.UserInfoDTO;
 import com.example.covidtest.pojo.Booking;
 import com.example.covidtest.pojo.Response;
 import com.example.covidtest.service.IBookingService;
@@ -9,8 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-
-import javax.servlet.http.HttpServletRequest;
 
 /**
  * @description: 居家预定子系统
