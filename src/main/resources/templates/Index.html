@@ -49,15 +49,40 @@
 
 </body>
 <!--js 调用后台接口，渲染到页面 -->
-    <input type="text" name="box" placeholder="..."><br/>
+    <input type="text" name="box" id="searchtext" placeholder="..."><br/>
     <button id="button" value="search">search</button>
 <script>
+    
+    function f(group) {
+        //拼接字符串
+        var str = '';
+        //对数据做遍历，拼接到页面显示
+        for(var i=0;i<group.length;i++){
+            console.log(group[i])
+            str += '<div class="item">'+
+                '<div class="item-title">'+ group[i].id +'</div>'+
+                '<div>'+
+                '<span class="item-content">'+ group[i].name +'</span>'+
+                '<span class="item-content">'+ group[i].place +'</span>'+
+                '<span class="item-content">'+ group[i].type +'</span>'+
+                '<span class="item-content">'+ group[i].status +'</span>'+
+                '<span class="item-content">'+ group[i].book +'</span>'+
+                '<span class="item-content">'+ group[i].time +'</span>'+
+                '</div>'+
+                '</div>';
+        }
+        //放入页面的容器显示
+        $('#container').html(str);
+    }
+    
     $("button").click(function(){
+        var data = document.getElementById("searchtext").value;
+        console.log(data)
         $.ajax({
             //请求方式
             type:'GET',
             //发送请求的地址以及传输的数据
-            url:'/getSites',
+            url:'/searchSites?keyWord='+data,
             //服务器返回的数据类型
             dataType:'json',
             success:function(data){
@@ -67,25 +92,7 @@
                 var group = data.data;
                 console.log(group)
 
-                //拼接字符串
-                var str = '';
-                //对数据做遍历，拼接到页面显示
-                for(var i=0;i<group.length;i++){
-                    console.log(group[i])
-                    str += '<div class="item">'+
-                        '<div class="item-title">'+ group[i].id +'</div>'+
-                        '<div>'+
-                        '<span class="item-content">'+ group[i].name +'</span>'+
-                        '<span class="item-content">'+ group[i].place +'</span>'+
-                        '<span class="item-content">'+ group[i].type +'</span>'+
-                        '<span class="item-content">'+ group[i].status +'</span>'+
-                        '<span class="item-content">'+ group[i].book +'</span>'+
-                        '<span class="item-content">'+ group[i].time +'</span>'+
-                        '</div>'+
-                        '</div>';
-                }
-                //放入页面的容器显示
-                $('#container').html(str);
+                f(group)
             },
             error:function(jqXHR){
                 //请求失败函数内容
